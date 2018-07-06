@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>drawImage</title>
+</head>
+<style>
+	canvas{
+		display: block;
+		margin: 50px auto;
+		background: #ddd;
+	}
+</style>
+<body>
+	<canvas width="600" height="600">该浏览器不支持canvas标签</canvas>
+	<input type="file">
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+	var file = document.querySelector('input');
+	file.onchange = function(){
+		var data = this.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(data);
+		reader.onload = function(){
+			var image = new Image();
+			image.src = this.result;
+			image.onload = function(){
+				ctx.drawImage(image,0,0,557,574,0,0,557,574);
+			}
+		}
+	}
+</script>
+</html>

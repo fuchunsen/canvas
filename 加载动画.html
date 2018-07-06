@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>加载动画</title>
+</head>
+<body>
+	<canvas width="600" height="400" style="display: block;margin: 50px auto;background: #eee;"></canvas>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+	// ctx.translate(300,200);
+	// ctx.rotate(-Math.PI/2);
+	// ctx.arc(0,0,100,0,Math.PI/2);
+	// ctx.stroke();
+	ctx.fillStyle = 'red';
+	ctx.lineWidth = 10;
+	ctx.lineCap = 'round';
+	ctx.font = '30px 微软雅黑';
+	ctx.textAlign = 'center';
+	ctx.textBaseline = 'middle';
+	ctx.fillText('0%',300,200);
+	var num = 100;
+	var n = 0;
+
+	var t = setInterval(load,20);
+	function load(){
+		n++;
+		if(n >= num){
+			clearInterval(t);
+		}
+		ctx.clearRect(0,0,600,400);
+		ctx.beginPath();
+		ctx.strokeStyle = 'blue';
+		ctx.arc(300,200,150,-Math.PI/2,n/100*Math.PI*2-Math.PI/2);
+		ctx.stroke();
+		ctx.fillText(n+'%',300,200);
+	}
+
+
+
+	// var t;
+	// function load(){
+	// 	n++;
+	// 	if(n >= num){
+	// 		cancelAnimationFrame(t);
+	// 	}else{
+	// 		t = requestAnimationFrame(load);
+	// 	}
+	// 	ctx.clearRect(0,0,600,400);
+	// 	ctx.beginPath();
+	// 	ctx.strokeStyle = 'blue';
+	// 	ctx.arc(300,200,150,-Math.PI/2,n/100*Math.PI*2-Math.PI/2);
+	// 	ctx.stroke();
+	// 	ctx.fillText(n+'%',300,200);
+	// }
+	// load();
+</script>
+</html>

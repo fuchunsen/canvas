@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>imagedata</title>
+</head>
+<body>
+	<canvas width="400" height="400" style="background: #ccc;display: block;margin: 50px auto;"></canvas>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+	ctx.fillRect(50,50,300,300);
+	var data = ctx.getImageData(0,0,300,300);
+	ctx.clearRect(0,0,400,400);
+	ctx.putImageData(data,0,0);
+</script>
+</html>

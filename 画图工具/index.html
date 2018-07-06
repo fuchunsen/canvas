@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>画图工具</title>
+	<link rel="stylesheet" href="index.css">
+	<link rel="stylesheet" href="base_PC.css">
+	<script src="index.js"></script>
+</head>
+<body>
+	<header class="header">画板</header>
+	<aside class="aside">
+		<button class="pencil tool">§</button>
+		<button class="line tool">―</button>
+		<button class="circle tool">●</button>
+		<button class="square tool">■</button>
+		<button class="more tool">★</button>
+		<button class="rubber tool">□</button>
+		<button class="font">插入文字</button>
+		<input type="text" class="fontsize" placeholder="字号" value="10">
+		<input type="text" class="lineWidth" placeholder="线宽或橡皮" value="1">
+		<input type="radio" name="style" value="stroke" id="stroke" checked="checked">
+		<label for="stroke">边框</label>
+		<input type="color" class="check" id="strokeCheck">
+		<input type="radio" name="style" value="fill" id="fill">
+		<label for="fill">填充</label>
+		<input type="color" class="check" id="fillCheck">
+		<input type="radio" name="shape" value="tu" id="tu" checked="checked">
+		<label for="tu">凸多边形</label>
+		<input type="radio" name="shape" value="ao" id="ao">
+		<label for="ao">凹多边形</label>
+		<input type="text" name="bian" id="bianshu" value="3">
+		<input type="file" class="fileUp">
+		<button class="picture">灰度处理</button>
+		<button class="picture">反相处理</button>
+		<button class="picture">马赛克</button>
+		<button class="make">生成图片</button>
+		<button class="back">撤销</button>
+		<button>清除画板</button>
+	</aside>
+	<div class="box">
+		<canvas width="1100" height="570"></canvas>
+	</div>
+</body>
+</html>

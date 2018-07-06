@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas</title>
+</head>
+<style>
+	body{
+		margin: 0;
+	}
+	canvas{
+		width: 1200px;
+		height: 500px;
+		background: #ccc;
+	}
+</style>
+<body>
+	<canvas>此浏览器不支持canvas</canvas>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	canvas.width = 1000;
+	canvas.height = 500;
+	var ctx = canvas.getContext('2d');
+
+	//画线
+	// ctx.strokeRect(50,50,100,50);
+	// ctx.clearRect(100,50,50,50);
+	// ctx.beginPath();
+	// ctx.moveTo(20,20);
+	// ctx.lineTo(20,400);
+	// ctx.lineTo(800,400);
+	// ctx.closePath();
+	// ctx.fillStyle = 'linear-gradient(to right,red,blue)';
+	// ctx.fill();
+
+
+	//线段端点样式
+	// var arr = ['butt','round','square'];
+	// for(var i = 0 ; i < 3 ; i++){
+	// 	ctx.beginPath();
+	// 	// ctx.lineCap = arr[i];
+	// 	ctx.lineWidth = 8;
+	// 	ctx.moveTo(30+i*50,50);
+	// 	ctx.lineTo(30+i*50,200);
+	// 	ctx.stroke();
+	// }
+
+
+	//两线相交处样式
+	// var arr = ['round','bevel','miter'];
+	// ctx.beginPath();
+	// ctx.moveTo(100,100);
+	// ctx.lineTo(200,100);
+	// ctx.lineTo(130,200);
+	// ctx.lineTo(150,50);
+	// ctx.lineTo(170,200);
+	// ctx.closePath();
+	// ctx.lineWidth = 8;
+	// ctx.stroke();
+	// for(var i = 0 ; i < 3 ; i++){
+	// 	ctx.lineJoin = arr[i];
+	// 	ctx.moveTo(100+120*(i+1),100);
+	// 	ctx.lineTo(200+120*(i+1),100);
+	// 	ctx.lineTo(130+120*(i+1),200);
+	// 	ctx.lineTo(150+120*(i+1),50);
+	// 	ctx.lineTo(170+120*(i+1),200);
+	// 	ctx.closePath();
+	// 	ctx.stroke();
+	// }
+
+
+	//虚线边框
+	// ctx.lineWidth=3;
+	// ctx.setLineDash([30,10]);
+	// ctx.lineDashOffset = 0;
+	// ctx.strokeRect(200,200,500,300);
+
+
+	//线性渐变
+	// var color = ctx.createLinearGradient(0,50,300,50);
+	// color.addColorStop(0,'skyblue');
+	// color.addColorStop(1,'blue');
+	// ctx.fillStyle=color;
+	// ctx.fillRect(0,0,300,100);
+
+
+	//径向渐变
+	// var color = ctx.createRadialGradient(500,250,50,500,250,250);
+	// color.addColorStop(0,'skyblue');
+	// color.addColorStop(0.5,'lime');
+	// color.addColorStop(1,'blue');
+	// ctx.fillStyle=color;
+	// ctx.fillRect(0,0,1000,500);
+
+
+	//阴影
+	ctx.shadowOffsetX = 10;
+	ctx.shadowOffsetY = 20;
+	ctx.shadowColor = 'rgba(0,0,255,0.4)';
+	ctx.shadowBlur = 20;
+	ctx.fillStyle = 'blue';
+	ctx.fillRect(50,50,200,200);
+
+
+	//绘制文本
+	// ctx.beginPath();
+	// ctx.moveTo(0,250);
+	// ctx.lineTo(1000,250);
+	// ctx.stroke();
+	// ctx.moveTo(500,0);
+	// ctx.lineTo(500,500);
+	// ctx.stroke();
+	// ctx.font = '50px 黑体';
+	// ctx.textAlign = 'center';
+	// ctx.textBaseline = 'middle';
+	// ctx.direction = 'rtl';
+	// ctx.fillText('今日阳光明媚！',500,250);
+
+
+
+</script>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>漂浮的粒子</title>
+</head>
+<body>
+	<canvas width="500" height="500" style="background: #ccc;display: block;margin: 50px auto;"></canvas>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+	var arrRadial = [];
+	var arrColor = ['#333','#ff6700','tomato','plum','lime'];
+	var moveX = -100;
+	var moveY = -100;
+	for(var i = 0 ; i < 500 ; i++){
+		var x = canvas.width*Math.random();
+		var y = canvas.height*Math.random();
+		var r = 3*Math.random()+2;
+		arrRadial.push(new circle(x,y,r));
+	}
+	function circle(x,y,r){
+		this.x = x;
+		this.y = y;
+		this.r = r;
+		this.color = arrColor[Math.floor(Math.random()*5)];
+		this.dirX = Math.random()*2;
+		this.dirY = Math.random()*2;
+		if(this.dirX >= 1){
+			this.speedX = 1*Math.random();
+		}else{
+			this.speedX = -1*Math.random();
+		}
+		if(this.dirY >= 1){
+			this.speedY = 1*Math.random();
+		}else{
+			this.speedY = -1*Math.random();
+		}
+	}
+	canvas.onmousemove = function(e){
+		var e = e || event;
+		moveX = e.offsetX;
+		moveY = e.offsetY;
+	}
+	canvas.onmouseleave = function(){
+		moveX = -100;
+		moveY = -100;
+	}
+	circle.prototype.draw = function(){
+		ctx.beginPath();
+		ctx.fillStyle = this.color;
+		ctx.arc(this.x,this.y,this.r,0,2*Math.PI);
+		ctx.closePath();
+		ctx.fill();
+	}
+	circle.prototype.update = function(){
+		this.x += this.speedX;
+		this.y += this.speedY;
+		if(this.x <= 0 || this.x >= canvas.width){
+			this.speedX *= -1;
+		}
+		if(this.y <= 0 || this.y >= canvas.height){
+			this.speedY *= -1;
+		}
+		if(Math.abs(moveX-this.x) < 20 && Math.abs(moveY-this.y) < 20 && this.r < 30){
+			this.r += 2;
+		}else{
+			if(this.r > 3){
+				this.r -= 2;
+			}
+		}
+		this.draw();
+	}
+	function move(){
+		ctx.clearRect(0,0,500,500);
+		arrRadial.forEach(function(val){
+			val.update();
+		})
+		requestAnimationFrame(move);
+	}
+	move();
+	// setInterval(move,5);
+</script>
+</html>

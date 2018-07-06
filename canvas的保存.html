@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>canvas的保存</title>
+</head>
+<body>
+	<canvas width="400" height="400" style="background: #eee;display: block;margin: 50px auto;">此浏览器不支持canvas</canvas>
+	<button id="clear" style="display: block;margin: auto;cursor: pointer;-webkit-user-select: none;">清空画布</button>
+	<button id="save" style="display: block;margin: auto;cursor: pointer;-webkit-user-select: none;">生成图片</button>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var ctx = canvas.getContext('2d');
+
+
+	canvas.onmousedown = function(e){
+		var e = e || event;
+		var sx = e.offsetX;
+		var sy = e.offsetY;
+		ctx.beginPath();
+		ctx.moveTo(sx,sy);
+		canvas.onmousemove = function(e){
+			var e = e || event;
+			var mx = e.offsetX;
+			var my = e.offsetY;
+			ctx.lineTo(mx,my);
+			ctx.stroke();
+		}
+	}
+	window.onmouseup = function(){
+		canvas.onmousemove = null;
+	}
+
+
+	var btn = document.querySelector('#clear');
+	btn.onclick = function(){
+		ctx.clearRect(0,0,400,400);
+	}
+
+
+
+	var button = document.querySelector('#save');
+	button.onclick = function(){
+		var data = canvas.toDataURL('image/png');
+		var a = document.createElement('a');
+		var img = new Image();
+		a.href = data;
+		a.download = 'canvas.png';
+		img.src = data;
+		a.appendChild(img);
+		document.body.appendChild(a);
+	}
+	
+</script>
+</html>

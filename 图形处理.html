@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图形处理</title>
+</head>
+<body>
+	<canvas width="500" height="500" style="background: #eee;display: block;margin: 50px auto;"></canvas>
+	<input type="file">
+	<button id="save" style="display: block;margin: auto;cursor: pointer;-webkit-user-select: none;">生成图片</button>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var file = document.querySelector('input');
+	var ctx = canvas.getContext('2d');
+
+	// 对图片进行灰度处理
+	// file.onchange = function(){
+	// 	var data = this.files[0];
+	// 	var reader = new FileReader();
+	// 	reader.readAsDataURL(data);
+	// 	reader.onload = function(){
+	// 		var image = new Image();
+	// 		image.src = this.result;
+	// 		image.onload = function(){
+	// 			ctx.drawImage(image,0,0,500,500,0,0,500,500);
+	// 			var img = ctx.getImageData(0,0,500,500);
+	// 			for(var i = 0 ; i < img.width*img.height ; i++){
+	// 				var grey = img.data[4*i+0]*0.299+img.data[4*i+1]*0.578+img.data[4*i+2]*0.114;
+	// 				img.data[4*i+0] = grey;
+	// 				img.data[4*i+1] = grey;
+	// 				img.data[4*i+2] = grey;
+	// 			}
+	// 			ctx.clearRect(0,0,500,500);
+	// 			ctx.putImageData(img,0,0);
+	// 		}
+	// 	}
+	// }
+
+
+
+	//反相处理
+	// file.onchange = function(){
+	// 	var data = this.files[0];
+	// 	var reader = new FileReader();
+	// 	reader.readAsDataURL(data);
+	// 	reader.onload = function(){
+	// 		var image = new Image();
+	// 		image.src = this.result;
+	// 		image.onload = function(){
+	// 			ctx.drawImage(image,0,0,500,500,0,0,500,500);
+	// 			var img = ctx.getImageData(0,0,500,500);
+	// 			for(var i = 0 ; i < img.width*img.height ; i++){
+	// 				img.data[4*i+0] = 255-img.data[4*i+0];
+	// 				img.data[4*i+1] = 255-img.data[4*i+1];
+	// 				img.data[4*i+2] = 255-img.data[4*i+2];
+	// 			}
+	// 			ctx.clearRect(0,0,500,500);
+	// 			ctx.putImageData(img,0,0);
+	// 		}
+	// 	}
+	// }
+
+
+
+	//马赛克
+	file.onchange = function(){
+		var data = this.files[0];
+		var reader = new FileReader();
+		reader.readAsDataURL(data);
+		reader.onload = function(){
+			var image = new Image();
+			image.src = this.result;
+			image.onload = function(){
+				ctx.drawImage(image,0,0,500,500,0,0,500,500);
+				var img = ctx.getImageData(0,0,500,500);
+				var num = 10;
+				var height = img.height;
+				var width = img.width;
+				for(var k = 0 ; k < height/num ; k++){
+					for(var j = 0 ; j < width/num ; j++){
+						var item = ctx.getImageData(j*num,k*num,num,num);
+						var r = 0;
+						var g = 0;
+						var b = 0;
+						for(var m = 0 ; m < num*num ; m++){
+							r += item.data[m*4+0];
+							g += item.data[m*4+1];
+							b += item.data[m*4+2];
+						}
+						for(var n = 0 ; n < num*num ; n++){
+							item.data[n*4+0] = parseInt(r/(num*num));
+							item.data[n*4+1] = parseInt(g/(num*num));
+							item.data[n*4+2] = parseInt(b/(num*num));
+						}
+						ctx.putImageData(item,j*num,k*num);
+					}
+				}
+			}
+		}
+	}
+
+
+
+
+	var button = document.querySelector('#save');
+	button.onclick = function(){
+		var dataa = canvas.toDataURL('image/png');
+		var a = document.createElement('a');
+		var imge = new Image();
+		a.href = dataa;
+		a.download = 'canvas.png';
+		imge.src = dataa;
+		a.appendChild(imge);
+		document.body.appendChild(a);
+	}
+</script>
+</html>

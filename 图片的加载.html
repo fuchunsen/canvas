@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片的加载</title>
+</head>
+<body>
+	<input type="file" multiple="multiple">
+</body>
+<script>
+	var input = document.querySelector('input');
+	input.onchange = function(){
+		// for(var i = 0 ; i < this.files.length ; i++){
+		// 	var data = this.files[i];
+		// 	var reader = new FileReader();
+		// 	reader.readAsDataURL(data);
+		// 	reader.onload = function(){
+		// 		var result = this.result;
+		// 		var image = new Image(600,300);
+		// 		image.src = result;
+		// 		document.documentElement.appendChild(image);
+		// 	}
+		// }
+		Array.from(this.files).forEach(function(val,i){
+			var reader = new FileReader();
+			reader.readAsDataURL(val);
+			reader.onload = function(){
+				var result = this.result;
+				var image = new Image();
+				image.src = result;
+				document.documentElement.appendChild(image);
+			}
+		})
+	}
+</script>
+</html>

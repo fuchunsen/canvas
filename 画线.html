@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>画线</title>
+</head>
+<body>
+	<canvas width="600" height="500" style="display: block;background: #ccc;margin: 50px auto;"></canvas>
+	<button style="display: block;margin: auto;cursor: pointer;-webkit-user-select: none;">清除画布</button>
+</body>
+<script>
+	var canvas = document.querySelector('canvas');
+	var button = document.querySelector('button');
+	var ctx = canvas.getContext('2d');
+	var arr = [];
+	//铅笔线
+	// canvas.onmousedown = function(e){
+	// 	var e = e || event;
+	// 	var qsx = e.offsetX;
+	// 	var qsy = e.offsetY;
+	// 	ctx.beginPath();
+	// 	ctx.moveTo(qsx,qsy);
+	// 	canvas.onmousemove = function(e){
+	// 		var e = e || event;
+	// 		var qmx = e.offsetX;
+	// 		var qmy = e.offsetY;
+	// 		ctx.clearRect(0,0,600,500);
+	// 		if(arr.length > 0){
+	// 			ctx.putImageData(arr[arr.length-1],0,0);
+	// 		}
+	// 		ctx.lineTo(qmx,qmy);
+	// 		ctx.stroke();
+	// 	}
+	// }
+	// window.onmouseup = function(){
+	// 	canvas.onmousemove = null;
+	// 	arr.push(ctx.getImageData(0,0,600,500));
+	// }
+
+	//直线
+	// canvas.onmousedown = function(e){
+	// 	var e = e || event;
+	// 	var ssx = e.offsetX;
+	// 	var ssy = e.offsetY;
+	// 	canvas.onmousemove = function(e){
+	// 		ctx.beginPath();
+	// 		ctx.moveTo(ssx,ssy);
+	// 		var e = e || event;
+	// 		var smx = e.offsetX;
+	// 		var smy = e.offsetY;
+	// 		ctx.clearRect(0,0,600,500);
+	// 		if(arr.length > 0){
+	// 			ctx.putImageData(arr[arr.length-1],0,0);
+	// 		}
+	// 		ctx.lineTo(smx,smy);
+	// 		ctx.stroke();
+	// 	}
+	// }
+	// window.onmouseup = function(){
+	// 	canvas.onmousemove = null;
+	// 	arr.push(ctx.getImageData(0,0,600,500));
+	// }
+
+	//铅笔线
+	// canvas.onmousedown = function(){
+	// 	var e = e || event;
+	// 	var sx = e.offsetX;
+	// 	var sy = e.offsetY;
+	// 	ctx.beginPath();
+	// 	ctx.moveTo(sx,sy);
+	// 	this.onmousemove = function(e){
+	// 		var e = e || event;
+	// 		var mx = e.offsetX;
+	// 		var my = e.offsetY;
+	// 		ctx.lineTo(mx,my);
+	// 		ctx.stroke();
+	// 	}
+	// 	window.onmouseup = function(){
+	// 		canvas.onmousemove = null;
+	// 	}
+	// }
+
+
+	//矩形
+	// canvas.onmousedown = function(e){
+	// 	var e = e || event;
+	// 	sx = e.offsetX;
+	// 	sy = e.offsetY;
+	// 	canvas.onmousemove = function(e){
+	// 		var e = e || event;
+	// 		mx = e.offsetX;
+	// 		my = e.offsetY;
+	// 		ctx.clearRect(0,0,600,500);
+	// 		if(arr.length > 0){
+	// 			ctx.putImageData(arr[arr.length-1],0,0);
+	// 		}
+	// 		ctx.beginPath();
+	// 		ctx.strokeRect(sx,sy,mx-sx,my-sy);
+	// 	}
+	// }
+	// window.onmouseup = function(){
+	// 	canvas.onmousemove = null;
+	// 	arr.push(ctx.getImageData(0,0,600,500));
+	// }
+
+
+	//圆
+	// canvas.onmousedown = function(e){
+	// 	var e = e || event;
+	// 	var rsx = e.offsetX;
+	// 	var rsy = e.offsetY;
+	// 	canvas.onmousemove = function(e){
+	// 		var e = e || event;
+	// 		var rmx = e.offsetX;
+	// 		var rmy = e.offsetY;
+	// 		ctx.clearRect(0,0,600,500);
+	// 		if(arr.length > 0){
+	// 			ctx.putImageData(arr[arr.length-1],0,0);
+	// 		}
+	// 		ctx.beginPath();
+	// 		ctx.arc(rsx,rsy,Math.pow(Math.pow(rmx-rsx,2)+Math.pow(rmy-rsy,2),1/2),0,2*Math.PI);
+	// 		ctx.stroke();
+	// 	}
+	// }
+	// window.onmouseup = function(){
+	// 	canvas.onmousemove = null;
+	// 	arr.push(ctx.getImageData(0,0,600,500));
+	// }
+
+
+	//凸多边形
+	// var bian = 7;
+	// canvas.onmousedown = function(e){
+	// 	var e = e || event;
+	// 	var msx = e.offsetX;
+	// 	var msy = e.offsetY;
+	// 	canvas.onmousemove = function(e){
+	// 		var e = e || event;
+	// 		var mmx = e.offsetX;
+	// 		var mmy = e.offsetY;
+	// 		ctx.clearRect(0,0,600,500);
+	// 		if(arr.length > 0){
+	// 			ctx.putImageData(arr[arr.length-1],0,0);
+	// 		}
+	// 		ctx.beginPath();
+	// 		var r = Math.sqrt(Math.pow(mmx-msx,2)+Math.pow(mmy-msy,2));
+	// 		var angle = Math.PI*2/bian;
+	// 		if(mmy >= msy){
+	// 			var cot = Math.atan((mmx-msx)/(mmy-msy));
+	// 		}else{
+	// 			var cot = Math.atan((mmx-msx)/(mmy-msy))-Math.PI;
+	// 		}
+	// 		ctx.moveTo(mmx,mmy);
+	// 		for(let i = 1 ; i < bian ; i++){
+	// 			ctx.lineTo(msx+Math.sin(i*angle+cot)*r,msy+Math.cos(i*angle+cot)*r);
+	// 		}
+	// 		ctx.closePath();
+	// 		ctx.stroke();
+	// 	}
+	// }
+	// window.onmouseup = function(){
+	// 	canvas.onmousemove = null;
+	// 	arr.push(ctx.getImageData(0,0,600,500));
+	// }
+
+
+	//凹多边形
+	// var bian = 10;
+	// canvas.onmousedown = function(e){
+	// 	var e = e || event;
+	// 	var msx = e.offsetX;
+	// 	var msy = e.offsetY;
+	// 	canvas.onmousemove = function(e){
+	// 		var e = e || event;
+	// 		var mmx = e.offsetX;
+	// 		var mmy = e.offsetY;
+	// 		ctx.clearRect(0,0,600,500);
+	// 		if(arr.length > 0){
+	// 			ctx.putImageData(arr[arr.length-1],0,0);
+	// 		}
+	// 		ctx.beginPath();
+	// 		var r = Math.sqrt(Math.pow(mmx-msx,2)+Math.pow(mmy-msy,2));
+	// 		var angle = Math.PI/bian;
+	// 		if(mmy >= msy){
+	// 			var cot = Math.atan((mmx-msx)/(mmy-msy));
+	// 		}else{
+	// 			var cot = Math.atan((mmx-msx)/(mmy-msy))-Math.PI;
+	// 		}
+	// 		ctx.moveTo(mmx,mmy);
+	// 		for(let i = 1 ; i < bian*2 ; i++){
+	// 			if(i%2==0){
+	// 				ctx.lineTo(msx+Math.sin(i*angle+cot)*r,msy+Math.cos(i*angle+cot)*r);
+	// 			}else{
+	// 				ctx.lineTo(msx+Math.sin(i*angle+cot)*r/2,msy+Math.cos(i*angle+cot)*r/2);
+	// 			}
+	// 		}
+	// 		ctx.closePath();
+	// 		ctx.stroke();
+	// 	}
+	// }
+	// window.onmouseup = function(){
+	// 	canvas.onmousemove = null;
+	// 	arr.push(ctx.getImageData(0,0,600,500));
+	// }
+
+
+	button.onclick = function(){
+		ctx.clearRect(0,0,600,500);
+		arr = [];
+	}
+</script>
+</html>
+<!-- Zp031225 -->
